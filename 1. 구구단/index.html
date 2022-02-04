@@ -36,11 +36,16 @@
               value: '',
             });
           }
+          // 입력 이후 input 창에 focus를 맞추고 싶은 경우 ref를 활용하자.
+          this.input.focus();
         };
 
         onChange = (e) => {
+          // setState 수행 시 랜더링이 진행된다. 성능 최적화의 주 요인이 된다.
           this.setState({ value: e.target.value });
         };
+
+        input;
 
         render() {
           return (
@@ -50,7 +55,14 @@
                 {this.state.first} 곱하기 {this.state.second} 는?
               </div>
               <form onSubmit={this.onSubmit}>
-                <input type="number" value={this.state.value} onChange={this.onChange} />
+                <input
+                  ref={(c) => {
+                    this.input = c;
+                  }}
+                  type="number"
+                  value={this.state.value}
+                  onChange={this.onChange}
+                />
                 <button>입력!</button>
               </form>
               <div>{this.state.result}</div>
