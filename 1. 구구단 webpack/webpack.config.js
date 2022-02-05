@@ -1,11 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   name: 'gugudan-setting',
   mode: 'development', // 실 서비스 : production
   devtool: 'eval',
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
 
   // 입력
@@ -17,17 +18,26 @@ module.exports = {
 
   // entry에 있는 파일을 읽어서 module을 적용한 후 output 파일을 뱉어낸다.
   module: {
-    rules: [{
-      test: /\.jsx?/, // js와 jsx 파일 (정규 표현식)
-      loader: 'babel-loader',
-      options: {
-        presets: ['@babel/preset-env', '@babel/preset-react'],
-        plugins: ['@babel/plugin-proposal-class-properties'],
-        compact: true,
+    rules: [
+      {
+        test: /\.jsx?/, // js와 jsx 파일 (정규 표현식)
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            [
+              '@babel/preset-env', // https://github.com/browserslist/browserslist#queries
+              { targets: { browsers: ['> 1% in KR', 'last 2 chrome versions'] }, debug: true },
+            ],
+            '@babel/preset-react',
+          ],
+          plugins: ['@babel/plugin-proposal-class-properties'],
+          compact: true,
+        },
       },
-
-    }],
+    ],
   },
+
+  plugins: [new webpack.LoaderOptionsPlugin({ debug: true })],
 
   // 출력
   output: {
