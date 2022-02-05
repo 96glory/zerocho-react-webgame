@@ -21,5 +21,13 @@ npm i -D @babel/preset-env
 npm i -D @babel/preset-react
 npm i -D @babel/plugin-proposal-class-properties
 
+# 실행 명령어
+
+npx webpack
+webpack serve --env development # 아래 명령어 필요 시
+
+npm i -D react-refresh @pmmmwh/react-refresh-webpack-plugin
+npm i -D webpack-dev-server
+
 npm i babel-loader
 ```
