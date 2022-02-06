@@ -31,3 +31,58 @@ npm i -D webpack-dev-server
 
 npm i babel-loader
 ```
+
+## require vs import
+
+- 두 키워드 모두 외부 라이브러리를 불러오는 코드
+
+- require : Node에서 사용되고 있는 CommonJS 키워드
+  ```javascript
+  const React = require('react');
+  const { Component } = React;
+  ```
+- import : ES6 키워드, export default로 내보낸 것을 불러올 수 있다.
+  ```javascript
+  import React, { Component } from 'react';
+  ```
+- require는 node에서만 사용되지만, babel이 import로 변환을 해주기 때문에 호환되는 것처럼 보인다.
+
+## default export VS named export
+
+1. default export
+
+- default로 선언된 모듈은 하나의 파일에서 단 하나의 변수 또는 클래스 등으로만 export할 수 있다.
+
+```javascript
+const Verification = () => {
+  / ...
+}
+
+export default Verification;
+```
+
+```javascript
+import Verification from '../VerificationPage';
+```
+
+2. named export
+
+- 한 파일 내에서 여러 변수/클래스를 export하는 것이 가능하다.
+- 단, import하는 곳에서 중괄호로 가져와야 한다.
+
+```javascript
+export class MyFirstClass {
+  /* ... */
+}
+export class MySecondClass {
+  /* ... */
+}
+```
+
+```javascript
+import { MyFirstClass, MySecondClass } from './MyClass';
+
+// or 모두 가져와야 하는 경우.
+
+import * as MyHello from './MyClass';
+```
