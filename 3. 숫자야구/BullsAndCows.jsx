@@ -1,4 +1,5 @@
 import React, { Component, useState, useRef } from 'react';
+import Try from './Try';
 
 // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 경우
 function getNumbers() {}
@@ -15,6 +16,14 @@ class BullsAndCows extends Component {
 
   onChangeInput = () => {};
 
+  fruits = [
+    { fruit: '사과', taste: '맛있다' },
+    { fruit: '바나나', taste: '맛있다' },
+    { fruit: '포도', taste: '씨가 싫다' },
+    { fruit: '귤', taste: '시다' },
+    { fruit: '감', taste: '떫다' },
+  ];
+
   render() {
     return (
       <>
@@ -24,19 +33,11 @@ class BullsAndCows extends Component {
         </form>
         <div>시도 : {this.state.tries.length}</div>
         <ul>
-          {[
-            { fruit: '사과', taste: '맛있다' },
-            { fruit: '바나나', taste: '맛있다' },
-            { fruit: '포도', taste: '씨가 싫다' },
-            { fruit: '귤', taste: '시다' },
-            { fruit: '감', taste: '떫다' },
-          ].map((v, i) => (
+          {this.fruits.map((v, i) => {
             // key는 고유한 값 (index는 성능 최적화에 문제가 생기므로, 추천하지 않는다.)
             // 화살표 함수에서 중괄호가 없으면, 곧바로 리턴한다.
-            <li key={i}>
-              <b>{v.fruit}</b> - {v.taste}
-            </li>
-          ))}
+            return <Try value={v} index={i} />;
+          })}
         </ul>
       </>
     );
