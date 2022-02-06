@@ -1,42 +1,36 @@
-import React, { useState, useRef } from 'react';
+import React, { Component, useState, useRef } from 'react';
 
-const BullsAndCows = () => {
-  const [word, setWord] = useState('영광');
-  const [value, setValue] = useState('');
-  const [result, setResult] = useState('');
-  const inputRef = useRef(null);
+// 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 경우
+function getNumbers() {}
 
-  const onSubmitForm = (e) => {
-    e.preventDefault();
-    if (value && value[0] === word[word.length - 1]) {
-      setResult((prevResult) => {
-        return '정답';
-      });
-      setWord((prevWord) => {
-        return value;
-      });
-      setValue('');
-    } else {
-      setResult('오답');
-      setValue('');
-    }
-    inputRef.current.focus();
+class BullsAndCows extends Component {
+  state = {
+    result: '',
+    value: '',
+    answer: getNumbers(),
+    tries: [],
   };
 
-  const onChangeInput = (e) => {
-    setValue(e.target.value);
-  };
+  onSubmitForm = () => {};
 
-  return (
-    <>
-      <div>{word}</div>
-      <form onSubmit={onSubmitForm}>
-        <input ref={inputRef} onChange={onChangeInput} value={value} />
-        <button>입력</button>
-      </form>
-      <div id="result">{result}</div>
-    </>
-  );
-};
+  onChangeInput = () => {};
+
+  render() {
+    return (
+      <>
+        <h1>{this.state.result}</h1>
+        <form onSubmit={this.onSubmitForm}>
+          <input maxLength={4} value={this.state.value} onChange={this.onChangeInput} />
+        </form>
+        <div>시도 : {this.state.tries.length}</div>
+        <ul>
+          {['1', '2', '3', '4', '5'].map((v) => {
+            return <li>{v}</li>;
+          })}
+        </ul>
+      </>
+    );
+  }
+}
 
 export default BullsAndCows;
