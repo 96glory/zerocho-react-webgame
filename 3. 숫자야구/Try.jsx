@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
-class Try extends Component {
-  render() {
-    return (
-      <li key={this.props.key}>
-        <div>{this.props.tryInfo.try}</div>
-        <div>{this.props.tryInfo.result}</div>
-      </li>
-    );
-  }
-}
+const Try = (props) => {
+  const { key, tryInfo } = props;
+  return (
+    <li key={key}>
+      <div>{tryInfo.try}</div>
+      <div>{tryInfo.result}</div>
+    </li>
+  );
+};
 
 export default Try;
