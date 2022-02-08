@@ -105,3 +105,5 @@ shouldComponentUpdate(newxProps, nextState, nextContext) {
   return false;
 }
 ```
+
+- `shouldComponentUpdate()`가 너무 까다롭다면, `Component` 대신 `PureComponent`를 extends하여 사용하면 된다. 이는 자동으로 `shouldComponentUpdate()`를 구현해준다.
