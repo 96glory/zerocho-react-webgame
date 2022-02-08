@@ -86,3 +86,22 @@ import { MyFirstClass, MySecondClass } from './MyClass';
 
 import * as MyHello from './MyClass';
 ```
+
+## shouldComponentUpdate()
+
+- 랜더링 수행 타이밍
+
+  - props가 변경되었을 때
+  - state가 변경되었을 때 (더 자세하게, setState를 호출하였을 때)
+  - 부모 컴포넌트가 랜더링 되었을 때
+
+- 다시 랜더링을 할지 말지 정의를 하는 함수
+
+```js
+shouldComponentUpdate(newxProps, nextState, nextContext) {
+  if (this.state.counter !== nextState.counter) {
+    return true;
+  }
+  return false;
+}
+```
