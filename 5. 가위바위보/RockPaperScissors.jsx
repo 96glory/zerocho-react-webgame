@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { Component, useState, useRef, useEffect } from 'react';
 
 const rockPaperScissorsCoords = {
   rock: '0',
@@ -18,10 +18,78 @@ const computerChoice = (imgCoord) => {
   })[0];
 };
 
+const RockPaperScissors = () => {
+  const [result, setResult] = useState('');
+  const [imgCoord, setImgCoord] = useState(rockPaperScissorsCoords.rock);
+  const [score, setScore] = useState(0);
+  const interval = useRef();
+
+  useEffect(() => {
+    // componentDidMount, componentDidUpdate 역할 (1:1 대응은 아님)
+    interval.current = setInterval(changeHand, 100);
+    return () => {
+      // componentWillUnmount 역할
+      clearInterval(interval.current);
+    };
+  }, [imgCoord]);
+
+  const changeHand = () => {
+    if (imgCoord === rockPaperScissorsCoords.rock) {
+      setImgCoord(rockPaperScissorsCoords.scissors);
+    } else if (imgCoord === rockPaperScissorsCoords.scissors) {
+      setImgCoord(rockPaperScissorsCoords.paper);
+    } else if (imgCoord === rockPaperScissorsCoords.paper) {
+      setImgCoord(rockPaperScissorsCoords.rock);
+    }
+  };
+
+  const onClickBtn = (choice) => () => {
+    clearInterval(interval.current);
+    const myScore = scores[choice];
+    const cpuScore = scores[computerChoice(imgCoord)];
+    const diff = myScore - cpuScore;
+    if (diff === 0) {
+      setResult('DRAW!');
+    } else if ([-1, 2].includes(diff)) {
+      setResult('YOU WIN!');
+      setScore((prevScore) => prevScore + 1);
+    } else {
+      setResult('YOU LOSE!');
+      setScore((prevScore) => prevScore - 1);
+    }
+    setTimeout(() => {
+      interval.current = setInterval(changeHand, 100);
+    }, 1000);
+  };
+
+  return (
+    <>
+      <div
+        id="computer"
+        style={{ background: `url(http://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0` }}
+      ></div>
+      <div>
+        <button id="rock" className="btn" onClick={onClickBtn('rock')}>
+          rock
+        </button>
+        <button id="paper" className="btn" onClick={onClickBtn('paper')}>
+          paper
+        </button>
+        <button id="scissors" className="btn" onClick={onClickBtn('scissors')}>
+          scissors
+        </button>
+      </div>
+      <div>{result}</div>
+      <div>Score : {score}</div>
+    </>
+  );
+};
+
+/*
 class RockPaperScissors extends Component {
   state = {
     result: '',
-    imgCoord: '0',
+    imgCoord: rockPaperScissorsCoords.rock,
     score: 0,
   };
 
@@ -113,5 +181,6 @@ class RockPaperScissors extends Component {
     );
   }
 }
+*/
 
 export default RockPaperScissors;
