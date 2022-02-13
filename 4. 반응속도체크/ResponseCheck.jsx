@@ -3,11 +3,46 @@ import React, { Component, useState, useRef } from 'react';
 class ResponseCheck extends Component {
   state = {
     state: 'waiting',
-    message: '클릭해서 시작하세요.',
+    message: 'Please click to start.',
     result: [],
   };
 
-  onClickScreen = () => {};
+  timeout;
+  startTime;
+  endTime;
+
+  onClickScreen = () => {
+    const { state, message, result } = this.state;
+    if (state === 'waiting') {
+      this.setState({
+        state: 'ready',
+        message: 'Click when it turns blue.',
+      });
+      this.timeout = setTimeout(() => {
+        this.setState({
+          state: 'now',
+          message: 'Click Now!',
+        });
+        this.startTime = new Date();
+      }, Math.floor(Math.random() * 1000) + 2000); // 2초 ~ 3초 랜덤
+    } else if (state === 'ready') {
+      clearTimeout(this.timeout);
+      this.setState({
+        state: 'waiting',
+        message: 'You so fast! Please click when it turns blue.',
+      });
+    } else if (state === 'now') {
+      this.endTime = new Date();
+      this.setState((prevState) => {
+        return {
+          state: 'waiting',
+          message: 'Please click to start.',
+          result: [...prevState.result, this.endTime - this.startTime],
+        };
+      });
+      console.log(result);
+    }
+  };
 
   renderAverage = () => {
     const { result } = this.state;
