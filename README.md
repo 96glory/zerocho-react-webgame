@@ -107,3 +107,7 @@ shouldComponentUpdate(newxProps, nextState, nextContext) {
 ```
 
 - `shouldComponentUpdate()`가 너무 까다롭다면, `Component` 대신 `PureComponent`를 extends하여 사용하면 된다. 이는 자동으로 `shouldComponentUpdate()`를 구현해준다.
+
+## `useState`와 `useRef`의 차이점
+
+- `useState`의 값이 변하면 랜더링 되지만, `useRef`의 값이 변해도 랜더링되지 않는다.
