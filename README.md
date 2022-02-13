@@ -117,14 +117,16 @@ shouldComponentUpdate(newxProps, nextState, nextContext) {
 - `componentDidMount() {}`
   - render가 처음 실행되고, 성공적으로 실행되었다면 `componenetDidMount`가 실행된다.
   - `componenetDidMount`는 리랜더링을 통해 실행되지 않는다.
+  - 보통 비동기 요청을 많이 한다.
 - `componentDidUpdate(prevProps, prevState) {}`
   - 리랜더링 후에 `componentDidUpdate`이 실행된다.
 - `componentWillUnmount() {}`
 
   - 컴포넌트가 제거되기 직전에 `componentWillUnmount`가 실행된다.
   - 예시 : 부모 컴포넌트가 자식 컴포넌트를 제거하는 경우
+  - 비동기 요청이 있을 경우, 여기서 정리한다.
 
 - 클래스의 경우
   - `consturctor` -> `render` -> `ref` -> `componentDidMount`
-  - `render` -> `componentDidUpdate`
+  - `souldComponentUpdate(true)` -> `render` -> `componentDidUpdate`
   - 컴포넌트 소멸 시 -> `componentWillUnmount`
