@@ -111,3 +111,20 @@ shouldComponentUpdate(newxProps, nextState, nextContext) {
 ## `useState`와 `useRef`의 차이점
 
 - `useState`의 값이 변하면 랜더링 되지만, `useRef`의 값이 변해도 랜더링되지 않는다.
+
+## react lifecycle
+
+- `componentDidMount() {}`
+  - render가 처음 실행되고, 성공적으로 실행되었다면 `componenetDidMount`가 실행된다.
+  - `componenetDidMount`는 리랜더링을 통해 실행되지 않는다.
+- `componentDidUpdate(prevProps, prevState) {}`
+  - 리랜더링 후에 `componentDidUpdate`이 실행된다.
+- `componentWillUnmount() {}`
+
+  - 컴포넌트가 제거되기 직전에 `componentWillUnmount`가 실행된다.
+  - 예시 : 부모 컴포넌트가 자식 컴포넌트를 제거하는 경우
+
+- 클래스의 경우
+  - `consturctor` -> `render` -> `ref` -> `componentDidMount`
+  - `render` -> `componentDidUpdate`
+  - 컴포넌트 소멸 시 -> `componentWillUnmount`
