@@ -63,7 +63,7 @@ class RockPaperScissors extends Component {
     clearInterval(this.interval);
   }
 
-  onClickBtn = (choice) => {
+  onClickBtn = (choice) => () => {
     const { imgCoord } = this.state;
     // 가위, 바위, 보 중 하나를 선택 시 컴퓨터가 뭘 냈는 지 보여주기 위해 잠시 사진을 멈춘다.
     clearInterval(this.interval);
@@ -97,31 +97,13 @@ class RockPaperScissors extends Component {
           style={{ background: `url(http://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0` }}
         ></div>
         <div>
-          <button
-            id="rock"
-            className="btn"
-            onClick={() => {
-              this.onClickBtn('rock');
-            }}
-          >
+          <button id="rock" className="btn" onClick={this.onClickBtn('rock')}>
             rock
           </button>
-          <button
-            id="paper"
-            className="btn"
-            onClick={() => {
-              this.onClickBtn('paper');
-            }}
-          >
+          <button id="paper" className="btn" onClick={this.onClickBtn('paper')}>
             paper
           </button>
-          <button
-            id="scissors"
-            className="btn"
-            onClick={() => {
-              this.onClickBtn('scissors');
-            }}
-          >
+          <button id="scissors" className="btn" onClick={this.onClickBtn('scissors')}>
             scissors
           </button>
         </div>
