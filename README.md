@@ -130,3 +130,11 @@ shouldComponentUpdate(newxProps, nextState, nextContext) {
   - `consturctor` -> `render` -> `ref` -> `componentDidMount`
   - `souldComponentUpdate(true)` -> `render` -> `componentDidUpdate`
   - 컴포넌트 소멸 시 -> `componentWillUnmount`
+
+## useMemo vs useCallBack
+
+- `useMemo`는 함수의 리턴값을 기억한다.
+- `useCallBack`은 함수 자체를 기억한다.
+  - 함수 변수를 생성하는 것이 오래 걸릴 때 사용.
+  - 자식 컴포넌트에 함수를 넘길 때 useCallback을 반드시 해주어야 한다. (매번 새로운 함수가 생성될 때 해당 함수를 받는 컴포넌트 또한 랜더링이 되기 때문.)
+- 두번째 인자의 값이 바뀌면, 기억 대상을 재생성한다.

@@ -1,8 +1,8 @@
-import React, { Component, useState, useRef, useEffect } from 'react';
+import React, { Component, useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import Ball from './Ball';
 
 function getWinNumbers() {
-  console.log('getWinnumbers');
+  console.log('getWinumbers');
 
   const candidate = Array(45)
     .fill()
@@ -16,14 +16,15 @@ function getWinNumbers() {
   const bonusNumber = shuffle[shuffle.length - 1];
   const winNumbers = shuffle.slice(0, 6).sort((p, c) => p - c);
 
-  console.log('bonusNumber', bonusNumber);
-  console.log('winNumbers', winNumbers);
-
   return [...winNumbers, bonusNumber];
 }
 
 const Lotto = () => {
-  const [winNumbers, setWinNumbers] = useState(getWinNumbers());
+  // hooks의 특성 :  hooks가 실행될 때 컴포넌트 처음부터 끝까지 실행시킨다.
+
+  // 두번째 인자가 바뀌지 않는 이상, 앞의 함수가 절대 실행되지 않는다.
+  const lottoNumbers = useMemo(() => getWinNumbers(), []);
+  const [winNumbers, setWinNumbers] = useState(lottoNumbers);
   const [winBalls, setWinBalls] = useState([]);
   const [bonus, setBonus] = useState(null);
   const [redo, setRedo] = useState(false);
@@ -50,13 +51,13 @@ const Lotto = () => {
     };
   }, [timeouts.current]);
 
-  const onClickRedo = () => {
+  const onClickRedo = useCallback(() => {
     setWinNumbers(getWinNumbers());
     setWinBalls([]);
     setBonus(null);
     setRedo(false);
     timeouts.current = [];
-  };
+  }, [winNumbers]);
 
   return (
     <>
